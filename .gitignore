@@ -70,3 +70,5 @@ dist
 # cypress videos & screenshots
 cypress/videos
 cypress/screenshots
+# final folder
+final

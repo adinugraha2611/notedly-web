@@ -1,25 +1,20 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-
 import Button from './Button';
-
 const Wrapper = styled.div`
   height: 100%;
 `;
-
 const Form = styled.form`
   height: 100%;
 `;
-
 const TextArea = styled.textarea`
   width: 100%;
   height: 90%;
 `;
-
 const NoteForm = props => {
   // set the default state of the form
+  // ???:     props.content dari mana? di New ga ada props yg namanya content
   const [value, setValue] = useState({ content: props.content || '' });
-
   // update the state when a user types in the form
   const onChange = event => {
     setValue({
@@ -27,7 +22,6 @@ const NoteForm = props => {
       [event.target.name]: event.target.value
     });
   };
-
   return (
     <Wrapper>
       <Form
@@ -53,5 +47,4 @@ const NoteForm = props => {
     </Wrapper>
   );
 };
-
 export default NoteForm;

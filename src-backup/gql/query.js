@@ -1,5 +1,4 @@
 import { gql } from '@apollo/client';
-
 const GET_NOTES = gql`
   query noteFeed($cursor: String) {
     noteFeed(cursor: $cursor) {
@@ -19,7 +18,6 @@ const GET_NOTES = gql`
     }
   }
 `;
-
 const GET_NOTE = gql`
   query note($id: ID!) {
     note(id: $id) {
@@ -33,6 +31,11 @@ const GET_NOTE = gql`
         avatar
       }
     }
+  }
+`;
+const IS_LOGGED_IN = gql`
+  {
+    isLoggedIn @client
   }
 `;
 
@@ -84,12 +87,6 @@ const GET_ME = gql`
         id
       }
     }
-  }
-`;
-
-const IS_LOGGED_IN = gql`
-  {
-    isLoggedIn @client
   }
 `;
 

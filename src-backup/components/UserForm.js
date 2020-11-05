@@ -1,32 +1,26 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-
 import Button from './Button';
-
 const Wrapper = styled.div`
   border: 1px solid #f5f4f0;
   max-width: 500px;
   padding: 1em;
   margin: 0 auto;
 `;
-
 const Form = styled.form`
   label,
   input {
     display: block;
     line-height: 2em;
   }
-
   input {
     width: 100%;
     margin-bottom: 1em;
   }
 `;
-
 const UserForm = props => {
   // set the default state of the form
   const [values, setValues] = useState();
-
   // update the state when a user types in the form
   const onChange = event => {
     setValues({
@@ -34,15 +28,16 @@ const UserForm = props => {
       [event.target.name]: event.target.value
     });
   };
-
+  console.log('values:', values);
   return (
     <Wrapper>
       {/* Display the appropriate form header */}
       {props.formType === 'signup' ? <h2>Sign Up</h2> : <h2>Sign In</h2>}
       {/* perform the mutation when a user submits the form */}
       <Form
-        onSubmit={event => {
-          event.preventDefault();
+        onSubmit={e => {
+          e.preventDefault();
+          // ??? where variables come from?
           props.action({
             variables: {
               ...values
@@ -86,5 +81,4 @@ const UserForm = props => {
     </Wrapper>
   );
 };
-
 export default UserForm;

@@ -1,15 +1,16 @@
 import React, { useEffect } from 'react';
-import { useMutation, useApolloClient } from '@apollo/client';
-
+import { useMutation, useApolloClient, gql } from '@apollo/client';
 import UserForm from '../components/UserForm';
-import { SIGNUP_USER } from '../gql/mutation';
-
+const SIGNUP_USER = gql`
+  mutation signUp($email: String!, $username: String!, $password: String!) {
+    signUp(email: $email, username: $username, password: $password)
+  }
+`;
 const SignUp = props => {
   useEffect(() => {
     // update the document title
-    document.title = 'Sign Up — Notedly';
+    document.title = 'Sign Up — Notedly';
   });
-
   const client = useApolloClient();
   const [signUp, { loading, error }] = useMutation(SIGNUP_USER, {
     onCompleted: data => {
@@ -21,7 +22,6 @@ const SignUp = props => {
       props.history.push('/');
     }
   });
-
   return (
     <React.Fragment>
       <UserForm action={signUp} formType="signup" />
@@ -32,5 +32,4 @@ const SignUp = props => {
     </React.Fragment>
   );
 };
-
 export default SignUp;

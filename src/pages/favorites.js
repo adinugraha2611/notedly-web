@@ -1,16 +1,17 @@
 import React, { useEffect } from 'react';
-import { useQuery, gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
+
 import NoteFeed from '../components/NoteFeed';
-// import the query
 import { GET_MY_FAVORITES } from '../gql/query';
 
 const Favorites = () => {
   useEffect(() => {
     // update the document title
-    document.title = 'Favorites — Notedly';
+    document.title = 'Favorites — Notedly';
   });
 
   const { loading, error, data } = useQuery(GET_MY_FAVORITES);
+
   // if the data is loading, our app will display a loading message
   if (loading) return 'Loading...';
   // if there is an error fetching the data, display an error message
@@ -23,4 +24,5 @@ const Favorites = () => {
     return <p>No favorites yet</p>;
   }
 };
+
 export default Favorites;

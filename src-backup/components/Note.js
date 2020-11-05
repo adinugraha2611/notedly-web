@@ -1,32 +1,29 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import { format } from 'date-fns';
-import styled from 'styled-components';
 import { useQuery } from '@apollo/client';
-
+// import logged in user UI components
 import NoteUser from './NoteUser';
+// import the IS_LOGGED_IN local query
 import { IS_LOGGED_IN } from '../gql/query';
-
+import styled from 'styled-components';
 // Keep notes from extending wider than 800px
 const StyledNote = styled.article`
   max-width: 800px;
   margin: 0 auto;
 `;
-
-// Style the note meta data
+// Style the note metadata
 const MetaData = styled.div`
   @media (min-width: 500px) {
     display: flex;
     align-items: top;
   }
 `;
-
 // add some space between the avatar and meta info
 const MetaInfo = styled.div`
   padding-right: 1em;
 `;
-
-// align 'Favorites' to the right on large screens
+// align 'UserActions' to the right on large screens
 const UserActions = styled.div`
   margin-left: auto;
 `;
@@ -37,7 +34,6 @@ const Note = ({ note }) => {
   if (loading) return <p>Loading...</p>;
   // if there is an error fetching the data, display an error message
   if (error) return <p>Error!</p>;
-
   return (
     <StyledNote>
       <MetaData>
@@ -66,5 +62,4 @@ const Note = ({ note }) => {
     </StyledNote>
   );
 };
-
 export default Note;

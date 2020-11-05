@@ -1,7 +1,6 @@
 import React from 'react';
-import { useMutation, useQuery } from '@apollo/client';
-
-// import the NoteForm component
+// import GraphQL dependencies
+import { useMutation, useQuery, gql } from '@apollo/client';
 import NoteForm from '../components/NoteForm';
 import { GET_NOTE, GET_ME } from '../gql/query';
 import { EDIT_NOTE } from '../gql/mutation';
@@ -11,6 +10,8 @@ const EditNote = props => {
   const id = props.match.params.id;
   // define our note query
   const { loading, error, data } = useQuery(GET_NOTE, { variables: { id } });
+  // fetch the current user's data
+  // destructuring data object and change its var name to userdata
   const { data: userdata } = useQuery(GET_ME);
   // define our mutation
   const [editNote] = useMutation(EDIT_NOTE, {
@@ -21,7 +22,6 @@ const EditNote = props => {
       props.history.push(`/note/${id}`);
     }
   });
-
   // if the data is loading, display a loading message
   if (loading) return 'Loading...';
   // if there is an error fetching the data, display an error message
@@ -30,9 +30,7 @@ const EditNote = props => {
   if (userdata.me.id !== data.note.author.id) {
     return <p>You do not have access to edit this note</p>;
   }
-
   // pass the data and mutation to the form component
   return <NoteForm content={data.note.content} action={editNote} />;
 };
-
 export default EditNote;

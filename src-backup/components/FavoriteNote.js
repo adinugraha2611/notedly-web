@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
-
 import ButtonAsLink from './ButtonAsLink';
 import { TOGGLE_FAVORITE } from '../gql/mutation';
 import { GET_MY_FAVORITES } from '../gql/query';
@@ -13,7 +12,6 @@ const FavoriteNote = props => {
     // check if the note exists in the user favorites list
     props.me.favorites.filter(note => note.id === props.noteId).length > 0
   );
-
   // toggleFavorite mutation hook
   const [toggleFavorite] = useMutation(TOGGLE_FAVORITE, {
     variables: {
@@ -22,9 +20,8 @@ const FavoriteNote = props => {
     // refetch the GET_MY_FAVORITES query to update the cache
     refetchQueries: [{ query: GET_MY_FAVORITES }]
   });
-
-  // if the user has favorited the note display the option to remove the favorite
-  // else display the option to add as a favorite
+  // if the user has favorited the note, display the option to remove the favorite
+  // else, display the option to add as a favorite
   return (
     <React.Fragment>
       {favorited ? (
@@ -34,7 +31,6 @@ const FavoriteNote = props => {
             setFavorited(false);
             setCount(count - 1);
           }}
-          data-cy="favorite"
         >
           Remove Favorite
         </ButtonAsLink>
@@ -45,7 +41,6 @@ const FavoriteNote = props => {
             setFavorited(true);
             setCount(count + 1);
           }}
-          data-cy="favorite"
         >
           Add Favorite
         </ButtonAsLink>
@@ -54,5 +49,4 @@ const FavoriteNote = props => {
     </React.Fragment>
   );
 };
-
 export default FavoriteNote;

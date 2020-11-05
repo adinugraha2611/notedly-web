@@ -1,25 +1,42 @@
 import React, { useEffect } from 'react';
-import { useMutation } from '@apollo/client';
-
-import NoteForm from '../components/NoteForm';
-import { NEW_NOTE } from '../gql/mutation';
+import { useMutation, gql } from '@apollo/client';
 import { GET_MY_NOTES, GET_NOTES } from '../gql/query';
+import NoteForm from '../components/NoteForm';
+
+const NEW_NOTE = gql`
+  mutation newNote($content: String!) {
+    newNote(content: $content) {
+      id
+      content
+      createdAt
+      favoriteCount
+      favoritedBy {
+        id
+        username
+      }
+      author {
+        username
+        id
+      }
+    }
+  }
+`;
 
 const NewNote = props => {
   useEffect(() => {
     // update the document title
-    document.title = 'New Note — Notedly';
+    document.title = 'New Note — Notedly';
   });
 
   const [data, { loading, error }] = useMutation(NEW_NOTE, {
-    // refetch the GET_NOTES and GET_MY_NOTES queries to update the cache
-    refetchQueries: [{ query: GET_MY_NOTES }, { query: GET_NOTES }],
+    // refetch the GET_NOTES query to update the cache
+    refetchQueries: [{ query: GET_NOTES }, { query: GET_MY_NOTES }],
     onCompleted: data => {
+      console.log('new data:', data);
       // when complete, redirect the user to the note page
       props.history.push(`note/${data.newNote.id}`);
     }
   });
-
   return (
     <React.Fragment>
       {/* as the mutation is loading, display a loading message*/}
@@ -31,5 +48,4 @@ const NewNote = props => {
     </React.Fragment>
   );
 };
-
 export default NewNote;

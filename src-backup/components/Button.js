@@ -9,14 +9,11 @@ const Button = styled.button`
   color: #fff;
   background-color: #0077cc;
   cursor: pointer;
-
   :hover {
     opacity: 0.8;
   }
-
   :active {
     background-color: #005fa3;
   }
 `;
-
 export default Button;
