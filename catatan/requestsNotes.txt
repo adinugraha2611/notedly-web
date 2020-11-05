@@ -1,0 +1,25 @@
+# give a name to this query as "noteFeed and define an optional var called "cursor":
+# the $cursor var is entered in query variable on graphql playground.
+# mirip kayak penamaan function dan argumen nya: function noteFeed(cursor)
+query noteFeed($cursor: String) {
+  # start querying noteFeed:
+  noteFeed(cursor: $cursor) {
+    cursor
+    hasNextPage
+    notes {
+      id
+      createdAt
+      content
+      favoriteCount
+      author {
+        username
+        id
+        avatar
+      }
+    }
+  }
+}
+
+{
+ "cursor": "5f7d475a58504e20f000ff59"
+}
